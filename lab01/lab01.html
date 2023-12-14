@@ -1,0 +1,38 @@
+<html>
+<head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+<!--    <script src="../libs/aframe.min.js"></script>-->
+</head>
+    <body>
+        <a-scene>
+
+<!--            <a-entity position="0 1.6 -4" scale="1.5 1.5 1.5">-->
+<!--                &lt;!&ndash; Основна частина "какашки" (піраміда зі скругленими краями) &ndash;&gt;-->
+<!--                <a-entity geometry="primitive: cone; radiusBottom: 1; height: 1; segmentsRadial: 8; segmentsHeight: 1"-->
+<!--                          material="color: #8B4513"></a-entity>-->
+
+<!--                &lt;!&ndash; Верхня частина "какашки" (піраміда зі скругленими краями) &ndash;&gt;-->
+<!--                <a-entity geometry="primitive: cone; radiusBottom: 0.8; height: 0.5; segmentsRadial: 8; segmentsHeight: 1"-->
+<!--                          position="0 0.7 0" material="color: #8B4513"></a-entity>-->
+
+<!--                &lt;!&ndash; Очі "какашки" (дві піраміди) &ndash;&gt;-->
+<!--                <a-entity geometry="primitive: cone; radiusBottom: 0.1; height: 0.2; segmentsRadial: 8; segmentsHeight: 1"-->
+<!--                          position="-0.3 0.2 -0.8" rotation="-90 0 0" material="color: white"></a-entity>-->
+<!--                <a-entity geometry="primitive: cone; radiusBottom: 0.1; height: 0.2; segmentsRadial: 8; segmentsHeight: 1"-->
+<!--                          position="0.3 0.2 -0.8" rotation="-90 0 0" material="color: white"></a-entity>-->
+
+<!--                &lt;!&ndash; Рот "какашки" (піраміда зі скругленими краями) &ndash;&gt;-->
+<!--                <a-entity geometry="primitive: cone; radiusBottom: 0.15; height: 0.1; segmentsRadial: 8; segmentsHeight: 1"-->
+<!--                          position="0 0 -0.8" rotation="-90 0 0" material="color: black"></a-entity>-->
+<!--            </a-entity>-->
+
+            <a-plane width="7" height="7" rotation="50 0 0" position="-2 -2 -5" color="purple"></a-plane>
+            <a-cylinder color="yellow" height="2" radius="0.05" position="-2 -1 -5"></a-cylinder>
+            <a-cylinder color="blue" height="2" radius="0.05" position="-3 -1 -5"></a-cylinder>
+            <a-torus-knot color="orange" radius="1.2" position="-3 1 -5"></a-torus-knot>
+            <a-cylinder position="-2 0.75 -5" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+            <a-plane width="8" height="2" position="2 1 -9"></a-plane>
+            <a-text value="Welcome to browser’s VR!" color="black" width="10" position="-0.5 1 -9"></a-text>
+        </a-scene>
+    </body>
+</html>
