@@ -1,33 +1,35 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-<!--    <script src="../libs/aframe.min.js"></script>-->
+<!--    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>-->
+    <script src="../libs/aframe.min.js"></script>
 </head>
     <body>
     <a-scene stats>
         <a-assets>
-            <img id="canestra"
-                 src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/illustration/758px-Canestra_di_frutta_(Caravaggio).jpg"
-                 crossorigin="anonymous">
-            <img id="grid"
-                 src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/uvgrid/UV_Grid_Sm.jpg"
-                 crossorigin="anonymous">
-            <video id="city"
-                   src="https://cdn.aframe.io/360-video-boilerplate/video/city.mp4"
-                   crossorigin="anonymous"></video>
-            <a-asset-item id="crate-obj"
-                          src="https://raw.githubusercontent.com/aframevr/assets/master/test-models/models/crate/crate.obj">
+<!--            <img id="canestra"-->
+<!--                 src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/illustration/758px-Canestra_di_frutta_(Caravaggio).jpg"-->
+<!--                 crossorigin="anonymous">-->
+<!--            <img id="grid"-->
+<!--                 src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/uvgrid/UV_Grid_Sm.jpg"-->
+<!--                 crossorigin="anonymous">-->
+<!--            <video id="city"-->
+<!--                   src="https://cdn.aframe.io/360-video-boilerplate/video/city.mp4"-->
+<!--                   crossorigin="anonymous"></video>-->
+<!--            <a-asset-item id="crate-obj"-->
+<!--                          src="https://raw.githubusercontent.com/aframevr/assets/master/test-models/models/crate/crate.obj">-->
+<!--            </a-asset-item>-->
+<!--            <a-asset-item id="crate-mtl"-->
+<!--                          src="https://raw.githubusercontent.com/aframevr/assets/master/test-models/models/crate/crate.mtl">-->
+<!--            <a-asset-item id="brainstem"-->
+<!--                          src="https://raw.githubusercontent.com/aframevr/assets/master/test-models/models/glTF-2.0/brainstem/BrainStem.gltf">-->
 
-            </a-asset-item>
-            <a-asset-item id="crate-mtl"
-                          src="https://raw.githubusercontent.com/aframevr/assets/master/test-models/models/crate/crate.mtl">
-
-            </a-asset-item>
-            <a-asset-item id="brainstem"
-                          src="https://raw.githubusercontent.com/aframevr/assets/master/test-models/models/glTF-2.0/brainstem/BrainStem.gltf">
-
-            </a-asset-item>
+            <img id="canestra" src="../assets/scene02/758px-Canestra_di_frutta_(Caravaggio).jpg" crossorigin="anonymous">
+            <img id="grid" src="../assets/scene02/UV_Grid_Sm.jpg" crossorigin="anonymous">
+            <video id="city" src="../assets/scene02/city.mp4" crossorigin="anonymous"></video>
+            <a-asset-item id="crate-obj" src="../assets/scene02/crate.obj"></a-asset-item>
+            <a-asset-item id="crate-mtl" src="../assets/scene02/crate.mtl"></a-asset-item>
+            <a-asset-item id="brainstem" src="../assets/scene02/BrainStem.gltf"></a-asset-item>
         </a-assets>
         <a-sky color="grey"></a-sky>
         <a-torus position="-2 1 -5" color="green" radius="1.2"
@@ -49,7 +51,7 @@ type: color; from: green; to: red; loop: true; dur: 10000">
         <a-plane src="#grid" width="9" height="2" position="3 1 -9">
         </a-plane>
         <a-text value="БУТОЛІН КИРИЛО ДМИТРОВИЧ ФІМ-23" color="black"
-                width="10" position="-0.5 1 -6" font="../fonts/custom/custom-msdf.json"
+                width="10" position="-0.5 1 -6" font="..../assets/fonts/custom/custom-msdf.json"
                 negate="false">
 
         </a-text>

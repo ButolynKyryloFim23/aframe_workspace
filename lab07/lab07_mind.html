@@ -5,18 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../libs/aframe.min.js"></script>
     <script src="../libs/mindar/mindar-image-aframe.prod.js"></script>
-    <script src="./lab07.js"></script>
 </head>
 <body>
-<a-scene mindar-image="imageTargetSrc: ../assets/pattern-ruther_ford.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-
+<a-scene mindar-image="imageTargetSrc: ../assets/markers/rutherford/pattern-ruther_ford.mind;" color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
     <a-entity mindar-image-target="targetIndex: 0" >
-        <a-entity scale="0.0025 0.0025 0.0025">
+        <a-entity scale="0.025 0.025 0.025">
             <!-- Ядро атома -->
             <a-sphere id="nucleus"
                       position="0 0 0" radius="3.0"
                       geometry="primitive: sphere; radius: 3.1"
-                      material="src: url(../assets/waternormals.jpg);"
+                      material="src: url(../assets/textures/waternormals.jpg);"
             >
                 <!-- Електрони на орбітах -->
                 <a-sphere
@@ -47,13 +45,12 @@
                 <a-torus position="0 0 0" radius="14" radius-tubular="0.1" rotation="90 0 0" color="#222"></a-torus>
 
             </a-sphere>
-            <a-entity main></a-entity>
         </a-entity>
 
     </a-entity>
-
-
     <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 </a-scene>
+
+<script src="./lab07.js" type="module"></script>
 </body>
 </html>

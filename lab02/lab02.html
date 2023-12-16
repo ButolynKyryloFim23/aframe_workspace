@@ -1,13 +1,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-<!--    <script src="../libs/aframe.min.js"></script>-->
+<!--    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>-->
+    <script src="../libs/aframe.min.js"></script>
 </head>
     <body>
         <a-scene>
+<!--            <a-plane-->
+<!--                    src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/illustration/758px-Canestra_di_frutta_(Caravaggio).jpg"-->
+<!--                    width="7" height="7" rotation="-55 0 0" position="-2 -2 -5" color="purple">-->
+<!--            </a-plane>-->
             <a-plane
-                    src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/illustration/758px-Canestra_di_frutta_(Caravaggio).jpg"
+                    src="../assets/scene02/758px-Canestra_di_frutta_(Caravaggio).jpg"
                     width="7" height="7" rotation="-55 0 0" position="-2 -2 -5" color="purple">
             </a-plane>
             <a-cylinder color="yellow" height="2" radius="0.05" position="-2 -1 -5"></a-cylinder>
@@ -21,7 +25,7 @@
             </a-torus-knot>
             <a-cylinder position="-2 -2 -5" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
             <a-plane width="11" height="2" position="4 1 -9"></a-plane>
-            <a-text value="БУТОЛІН КИРИЛО ДМИТРОВИЧ ФІМ-23" color="black" width="10" position="-0.5 1 -9" font="../fonts/custom/custom-msdf.json" negate="false"></a-text>
+            <a-text value="БУТОЛІН КИРИЛО ДМИТРОВИЧ ФІМ-23" color="black" width="10" position="-0.5 1 -9" font="../assets/fonts/custom/custom-msdf.json" negate="false"></a-text>
         </a-scene>
     </body>
 </html>

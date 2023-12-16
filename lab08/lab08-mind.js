@@ -17,7 +17,7 @@ async function createAltModel()
     // Создаем экземпляр MindARThree
     const mindarThree = new MindARThree({
         container: document.body,
-        imageTargetSrc: '../assets/pattern-ruther_ford.mind',
+        imageTargetSrc: '../assets/markers/rutherford/pattern-ruther_ford.mind',
         uiLoading: "no",
         uiScanning: "yes",
         uiError: "yes",
@@ -30,7 +30,7 @@ async function createAltModel()
 
     // Добавляем ядро атома
     const nucleusGeometry = new THREE.SphereGeometry(3.0, 32, 32);
-    const nucleusMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('../assets/waternormals.jpg') });
+    const nucleusMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('../assets/textures/waternormals.jpg') });
     const nucleus = new THREE.Mesh(nucleusGeometry, nucleusMaterial);
     setScale(nucleus);
     scene.add(nucleus);
@@ -76,7 +76,6 @@ function createElectron(animationRadius, animationSpeed, sphereRadius, color)
     const electronMaterial = new THREE.MeshBasicMaterial({ color: color });
     const electron = new THREE.Mesh(electronGeometry, electronMaterial);
     setScale(electron);
-    electron.scale.set(0.025, 0.025, 0.025);
     electron.userData = { radius: animationRadius, speed: animationSpeed };
     return electron;
 }

@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../libs/aframe.min.js"></script>
     <script src="../libs/aframe-ar.js"></script>
-    <script src="./lab07.js" ></script>
 </head>
 <body>
 <a-scene>
 
-    <a-marker type="pattern" url="../assets/pattern-ruther_ford.patt">
+    <a-marker type="pattern" url="../assets/markers/rutherford/pattern-ruther_ford.patt">
         <!-- Ядро атома -->
         <a-sphere id="nucleus"
                   scale="0.025 0.025 0.025"
                   position="0 0 0" radius="3.0"
                   geometry="primitive: sphere; radius: 3.1"
-                  material="src: url(../assets/waternormals.jpg);">
+                  material="src: url(../assets/textures/waternormals.jpg);">
             <!-- Електрони на орбітах -->
             <a-sphere
                     id="electron1"
@@ -48,5 +47,6 @@
         <a-entity main></a-entity>
     </a-marker>
 </a-scene>
+<script src="./lab07.js" ></script>
 </body>
 </html>

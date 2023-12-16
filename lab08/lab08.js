@@ -1,8 +1,4 @@
-// import * as three from '../libs/three/three.min.js';
 import * as THREE from '../libs/three/three.module.min.js';
-
-// import { MindARThree } from '../libs/mindar/mindar-image-three.prod.js';
-
 
 document.addEventListener("DOMContentLoaded", () => {
     const start = async() =>
@@ -13,28 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     start();
 });
 
-// AFRAME.registerComponent('main', {
-//
-//     tick: function (time, deltaTime)
-//     {
-//         for (let index = 1; index <= 3; index++)
-//         {
-//             const electron = document.querySelector('#electron' + index);
-//
-//             let radius = parseInt  (electron.getAttribute("animationRadius"));
-//             let speed  = parseFloat(electron.getAttribute("animationSpeed" ));
-//
-//             electron.setAttribute('position',
-//                 {
-//                     x: radius * Math.cos(speed * time / 1000),
-//                     y: 0,
-//                     z: radius * Math.sin(speed * time / 1000),
-//                 });
-//         }
-//     }
-// });
-
-
 async function createAltModel()
 {
     // Создаем сцену
@@ -42,7 +16,7 @@ async function createAltModel()
 
     // Добавляем ядро атома
     const nucleusGeometry = new THREE.SphereGeometry(3.0, 32, 32);
-    const nucleusMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('../assets/waternormals.jpg') });
+    const nucleusMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('../assets/textures/waternormals.jpg') });
     const nucleus = new THREE.Mesh(nucleusGeometry, nucleusMaterial);
     // nucleus.scale.set(0.025, 0.025, 0.025);
     scene.add(nucleus);
@@ -58,9 +32,9 @@ async function createAltModel()
     const electrons = [electron1, electron2, electron3];
 
     // Добавляем орбиты
-    addOrbit(6, 0x222222);
-    addOrbit(9, 0x222222);
-    addOrbit(14, 0x222222);
+    addOrbit(scene, 6, 0x222222);
+    addOrbit(scene, 9, 0x222222);
+    addOrbit(scene, 14, 0x222222);
 
     // Добавляем небо
     const skyGeometry = new THREE.SphereGeometry(100, 32, 32);
@@ -104,34 +78,42 @@ async function createAltModel()
             electron.position.setX(radius * Math.cos(speed * Date.now() / 1000));
             electron.position.setY(0);
             electron.position.setZ(radius * Math.sin(speed * Date.now() / 1000));
-
         }
         renderer.render(scene, camera);
     }
 
     animate();
+}
 
-    // Вспомогательные функции
+function createElectron(animationRadius, animationSpeed, sphereRadius, color)
+{
+    const electronGeometry = new THREE.SphereGeometry(sphereRadius, 32, 32);
+    const electronMaterial = new THREE.MeshBasicMaterial({ color: color });
+    const electron = new THREE.Mesh(electronGeometry, electronMaterial);
+    setScale(electron);
+    electron.userData = { radius: animationRadius, speed: animationSpeed };
+    return electron;
+}
 
-    function createElectron(animationRadius, animationSpeed, sphereRadius, color) {
-        const electronGeometry = new THREE.SphereGeometry(sphereRadius, 32, 32);
-        const electronMaterial = new THREE.MeshBasicMaterial({ color: color });
-        const electron = new THREE.Mesh(electronGeometry, electronMaterial);
-        electron.userData = { radius: animationRadius, speed: animationSpeed };
-        return electron;
-    }
+function addOrbit(scene, radius, color)
+{
+    const orbitGeometry = new THREE.TorusGeometry(radius, 0.1, 32, 100);
+    const orbitMaterial = new THREE.MeshBasicMaterial({ color: color });
+    const orbit = new THREE.Mesh(orbitGeometry, orbitMaterial);
+    setScale(orbit);
+    orbit.rotation.x = Math.PI / 2;
+    scene.add(orbit);
+    return orbit;
+}
 
-    function addOrbit(radius, color) {
-        const orbitGeometry = new THREE.TorusGeometry(radius, 0.1, 32, 100);
-        const orbitMaterial = new THREE.MeshBasicMaterial({ color: color });
-        const orbit = new THREE.Mesh(orbitGeometry, orbitMaterial);
-        orbit.rotation.x = Math.PI / 2;
-        scene.add(orbit);
-    }
+function setScale(object)
+{
+    // object.scale.set(0.025, 0.025, 0.025);
+}
 
-    function createMain() {
-        const main = new THREE.Object3D();
-        main.userData = { angle: 0 };
-        return main;
-    }
+function createMain()
+{
+    const main = new THREE.Object3D();
+    main.userData = { angle: 0 };
+    return main;
 }
