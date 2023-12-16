@@ -23,13 +23,6 @@ document.addEventListener("DOMContentLoaded", () =>
             padoruVideo = await loadVideoFile('VID', true);
         }
 
-
-        padoruModel.position.setX(0);
-        padoruModel.position.setY(0);
-        padoruModel.position.setZ(0);
-
-        scene.add(padoruModel);
-
         function animate()
         {
             requestAnimationFrame(animate);
@@ -81,7 +74,7 @@ function initMindArScene()
     const mindarThree = new MindARThree(
         {
             container: document.body,
-            imageTargetSrc: "../assets/markers/thumb_und_rutherford/targets.mind",
+            imageTargetSrc: "../assets/markers/rutherford_und_thumb/targets.mind",
             maxTrack: 2,
             uiLoading: "no",
             uiScanning: "yes",
