@@ -1,14 +1,14 @@
-import * as three from '../libs/three/three.min.js';
+// import * as three from '../libs/three/three.min.js';
 import * as THREE from '../libs/three/three.module.min.js';
 
-import { MindARThree } from '../libs/mindar/mindar-image-three.prod.js';
+// import { MindARThree } from '../libs/mindar/mindar-image-three.prod.js';
 
 
 document.addEventListener("DOMContentLoaded", () => {
     const start = async() =>
     {
         console.log("meow")
-        createModel();
+        await createAltModel();
     }
     start();
 });
@@ -34,98 +34,104 @@ document.addEventListener("DOMContentLoaded", () => {
 //     }
 // });
 
-async function createModel()
+
+async function createAltModel()
 {
-    const mindarThree = new MindARThree(
-        {
-            container: document.body,
-            imageTargetSrc: "../assets/pattern-ruther_ford.mind",
-        });
+    // Создаем сцену
+    const scene = new THREE.Scene();
 
-    const scene = mindarThree.scene;
+    // Добавляем ядро атома
+    const nucleusGeometry = new THREE.SphereGeometry(3.0, 32, 32);
+    const nucleusMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('../assets/waternormals.jpg') });
+    const nucleus = new THREE.Mesh(nucleusGeometry, nucleusMaterial);
+    // nucleus.scale.set(0.025, 0.025, 0.025);
+    scene.add(nucleus);
 
-    // const scanEntity = document.createElement("a-entity");
-    const scanEntity = new THREE.Object3D();
-    scanEntity.targetIndex = 0;
-    scene.add(scanEntity);
+    // Добавляем электроны
+    const electron1 = createElectron(6, 0.5, 0.5, 0x0000FF);
+    electron1.position.setX(6);
+    const electron2 = createElectron(9, 0.3, 1.0, 0xFFFF00);
+    electron1.position.setX(9);
+    const electron3 = createElectron(14, 0.2, 1.5, 0xFFA500);
+    electron1.position.setX(14);
+    scene.add(electron1, electron2, electron3);
+    const electrons = [electron1, electron2, electron3];
 
+    // Добавляем орбиты
+    addOrbit(6, 0x222222);
+    addOrbit(9, 0x222222);
+    addOrbit(14, 0x222222);
+
+    // Добавляем небо
+    const skyGeometry = new THREE.SphereGeometry(100, 32, 32);
+    const skyMaterial = new THREE.MeshBasicMaterial({ color: 0x222222 });
+    const sky = new THREE.Mesh(skyGeometry, skyMaterial);
+    scene.add(sky);
+
+    // Добавляем плоскость
+    const planeGeometry = new THREE.PlaneGeometry(100, 100);
+    const planeMaterial = new THREE.MeshBasicMaterial({ color: 0x888888, side: THREE.DoubleSide });
+    const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    plane.rotation.x = -Math.PI / 2;
+    plane.position.y = -20;
+    scene.add(plane);
+
+    // Добавляем основной компонент
+    const main = createMain();
+    scene.add(main);
+
+    // Создаем камеру
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 200);
+    camera.position.set(0, 30, 0); // Позиция над сферами
+    camera.lookAt(new THREE.Vector3(0, 0, 0)); // Направление в центр сцены
+
+
+    // Создаем рендерер
+    const renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Добавляем анимацию
+    function animate()
     {
-        // const scaleEntity = document.createElement("a-entity");
-        const scaleEntity = new THREE.Object3D(
-            {
-                scale : "0.025 0.025 0.025",
-            }
-        );
-        scanEntity.add(scaleEntity);
-
+        requestAnimationFrame(animate);
+        // main.rotation.y += 0.005; // Добавляем вращение основного компонента
+        for (let electron of electrons)
         {
-            const nucleus = new THREE.SphereGeometry(
-                {
-                    id: "nucleus",
-                    position: "0 0 0",
-                    radius: "3.0"
-                }
-            );
-            // const nucleusTexture = document.createElement("a-entity");
-            const nucleusTexture = new THREE.Object3D();
-            nucleus.Texturegeometry = "primitive: sphere; radius: 3.1";
-            nucleus.Texturematerial = "src: url(../assets/waternormals.jpg);";
-            // nucleus.appendChild(nucleusTexture);
-            scaleEntity.add(nucleus);
-        }
+            let radius = parseInt(  electron.userData.radius);
+            let speed  = parseFloat(electron.userData.speed);
 
-        {
-            // const orbits = document.createElement("a-entity");
-            const orbits = new THREE.Object3D(
-                {
-                    id : "orbits"
-                }
-            );
+            electron.position.setX(radius * Math.cos(speed * Date.now() / 1000));
+            electron.position.setY(0);
+            electron.position.setZ(radius * Math.sin(speed * Date.now() / 1000));
 
-            const radius = [6.0, 9.0, 14.0];
-            for (let index = 0; index < 3; index++) {
-                orbits.add(new THREE.TorusGeometry(
-                    {
-                        position: "0 0 0",
-                        radius: radius[index],
-                        rotation: "90 0 0",
-                        color: "#222",
-                        tube : 0.1
-                    }));
-            }
-            scaleEntity.add(orbits);
         }
-
-        {
-            const radius = [6.0, 9.0, 14.0];
-            const speed = [0.5, 0.3, 0.2];
-            const visibleRadius = [0.5, 1.0, 1.5];
-            const visibleColor = ["blue", "yellow", "orange"];
-            for (let index = 0; index < 3; index++) {
-                // const electron = document.createElement("a-entity");
-                const electron = new THREE.Object3D(
-                    {
-                        id : "electron" + (index + 1)
-                    }
-                );
-                electron.animationRadius    = radius[index];
-                electron.animationSpeed     = speed [index]
-                electron.add(new THREE.SphereGeometry(
-                    {
-                        radius: visibleRadius[index],
-                        color: visibleColor[index],
-                    }
-                ));
-                scaleEntity.add(electron);
-            }
-        }
-        // const mainEntity = scaleEntity.add("a-entity");
-        const mainEntity = new THREE.Object3D("main");
-        scaleEntity.add(mainEntity)
+        renderer.render(scene, camera);
     }
-    // document.body.appendChild(mindarThree.scene);
 
-    console.log(document)
+    animate();
 
-    await mindarThree.start();
+    // Вспомогательные функции
+
+    function createElectron(animationRadius, animationSpeed, sphereRadius, color) {
+        const electronGeometry = new THREE.SphereGeometry(sphereRadius, 32, 32);
+        const electronMaterial = new THREE.MeshBasicMaterial({ color: color });
+        const electron = new THREE.Mesh(electronGeometry, electronMaterial);
+        electron.userData = { radius: animationRadius, speed: animationSpeed };
+        return electron;
+    }
+
+    function addOrbit(radius, color) {
+        const orbitGeometry = new THREE.TorusGeometry(radius, 0.1, 32, 100);
+        const orbitMaterial = new THREE.MeshBasicMaterial({ color: color });
+        const orbit = new THREE.Mesh(orbitGeometry, orbitMaterial);
+        orbit.rotation.x = Math.PI / 2;
+        scene.add(orbit);
+    }
+
+    function createMain() {
+        const main = new THREE.Object3D();
+        main.userData = { angle: 0 };
+        return main;
+    }
 }

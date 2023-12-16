@@ -5,7 +5,10 @@ AFRAME.registerComponent('main', {
         for (let index = 1; index <= 3; index++)
         {
             const electron = document.querySelector('#electron' + index);
-
+            if (electron == null)
+            {
+                continue;
+            }
             let radius = parseInt  (electron.getAttribute("animationRadius"));
             let speed  = parseFloat(electron.getAttribute("animationSpeed" ));
 

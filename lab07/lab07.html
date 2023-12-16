@@ -7,57 +7,47 @@
     <script src="./lab07.js" ></script>
 </head>
 <body>
-<a-scene>
-    <!-- Ядро атома -->
-    <a-sphere id="nucleus" position="0 0 0" radius="3.0">
-        <a-entity
-                geometry="primitive: sphere; radius: 3.1"
-                material="src: url(../assets/waternormals.jpg);"
-        ></a-entity>
-    </a-sphere>
+    <a-scene>
+        <!-- Ядро атома -->
+        <a-sphere id="nucleus"
+                  scale="0.025 0.025 0.025"
+                  position="0 0 0" radius="3.0"
+                  geometry="primitive: sphere; radius: 3.1"
+                  material="src: url(../assets/waternormals.jpg);">
+            <!-- Електрони на орбітах -->
+            <a-sphere
+                    id="electron1"
+                    animationRadius="6"
+                    animationSpeed="0.5"
+                    radius="0.5"
+                    color="blue">
+            </a-sphere>
+            <a-sphere
+                    id="electron2"
+                    animationRadius="9"
+                    animationSpeed="0.3"
+                    radius="1.0"
+                    color="yellow">
+            </a-sphere>
 
-    <!-- Орбіти :) -->
-    <a-entity id="orbits">
-        <a-torus position="0 0 0" radius="6" radius-tubular="0.1" rotation="90 0 0" color="#222"></a-torus>
-        <a-torus position="0 0 0" radius="9" radius-tubular="0.1" rotation="90 0 0" color="#222"></a-torus>
-        <a-torus position="0 0 0" radius="14" radius-tubular="0.1" rotation="90 0 0" color="#222"></a-torus>
-    </a-entity>
+            <a-sphere
+                    id="electron3"
+                    animationRadius="14"
+                    animationSpeed="0.2"
+                    radius="1.5"
+                    color="orange">
+            </a-sphere>
 
-    <!-- Електрони на орбітах -->
-    <a-entity id="electron1"
-              animationRadius="6"
-              animationSpeed="0.5"
-    >
-        <a-sphere
-                radius="0.5"
-                color="blue"></a-sphere>
-    </a-entity>
+            <!-- Орбіти -->
+            <a-torus position="0 0 0" radius="6" radius-tubular="0.1" rotation="90 0 0" color="#222"></a-torus>
+            <a-torus position="0 0 0" radius="9" radius-tubular="0.1" rotation="90 0 0" color="#222"></a-torus>
+            <a-torus position="0 0 0" radius="14" radius-tubular="0.1" rotation="90 0 0" color="#222"></a-torus>
+        </a-sphere>
+        <!-- Параметри сцени -->
+        <a-sky color="#222"></a-sky>
+        <a-plane position="0 -20 0" rotation="-90 0 0" width="100" height="100" color="#888"></a-plane>
 
-    <a-entity id="electron2"
-              animationRadius="9"
-              animationSpeed="0.3"
-    >
-        <a-sphere
-                radius="1.0"
-                color="yellow"
-        ></a-sphere>
-    </a-entity>
-
-    <a-entity id="electron3"
-              animationRadius="14"
-              animationSpeed="0.2"
-    >
-        <a-sphere
-                radius="1.5"
-                color="orange"
-        ></a-sphere>
-    </a-entity>
-
-    <!-- Параметри сцени -->
-    <a-sky color="#222"></a-sky>
-    <a-plane position="0 -20 0" rotation="-90 0 0" width="100" height="100" color="#888"></a-plane>
-
-    <a-entity main></a-entity>
-</a-scene>
+        <a-entity main></a-entity>
+    </a-scene>
 </body>
 </html>
