@@ -3,12 +3,20 @@ import { FBXLoader } from '../libs/three/examples/jsm/loaders/FBXLoader.js';
 import { GLTFLoader } from '../libs/three/examples/jsm/loaders/GLTFLoader.js';
 import { MindARThree } from "../libs/mindar/mindar-image-three.prod.js";
 
+let scene;
+let camera;
+let renderer;
+
 document.addEventListener("DOMContentLoaded", () =>
 {
     const start = async() =>
     {
         const mindarThree = initMindArScene();
-        const {scene, camera, renderer} = mindarThree;
+        {
+            scene = mindarThree.scene;
+            camera = mindarThree.camera;
+            renderer = mindarThree.renderer;
+        }
 
         const padoruModel = await loadFbxModel('../assets/model/padoru_v3/Padoru_v3.1.fbx');
 
@@ -23,11 +31,6 @@ document.addEventListener("DOMContentLoaded", () =>
             padoruVideo = await loadVideoFile('VID', true);
         }
 
-        function animate()
-        {
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        }
         animate();
 
         initMakers(mindarThree, padoruModel, padoruVideo);
@@ -37,6 +40,11 @@ document.addEventListener("DOMContentLoaded", () =>
     start();
 });
 
+function animate()
+{
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+}
 
 function initMakers(mindarThree, model01, model02)
 {
