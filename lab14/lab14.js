@@ -38,11 +38,11 @@ document.addEventListener("DOMContentLoaded", () =>
 
 async function loadFaceapiNetwork()
 {
-    await faceapi.nets.ssdMobilenetv1.load("../model/faceapi/");
-    await faceapi.nets.tinyFaceDetector.load("../model/faceapi/");
-    await faceapi.nets.faceLandmark68Net.load("../model/faceapi/");
-    await faceapi.nets.faceExpressionNet.load("../model/faceapi/");
-    await faceapi.nets.ageGenderNet.load("../model/faceapi/");
+    await faceapi.nets.ssdMobilenetv1.load("../assets/aimodel/faceapi/");
+    await faceapi.nets.tinyFaceDetector.load("../assets/aimodel/faceapi/");
+    await faceapi.nets.faceLandmark68Net.load("../assets/aimodel/faceapi/");
+    await faceapi.nets.faceExpressionNet.load("../assets/aimodel/faceapi/");
+    await faceapi.nets.ageGenderNet.load("../assets/aimodel/faceapi/");
 };
 
 async function writeInfoFromFrame(renderer, scene, camera, video)
