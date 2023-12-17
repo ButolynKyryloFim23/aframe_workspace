@@ -1,5 +1,4 @@
 import * as THREE from '../libs/three/three.module.min.js';
-import * as TWEEN from '../libs/tween.umd.js';
 import {FBXLoader} from '../libs/three/examples/jsm/loaders/FBXLoader.js';
 import {GLTFLoader} from '../libs/three/examples/jsm/loaders/GLTFLoader.js';
 

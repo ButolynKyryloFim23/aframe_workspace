@@ -1,5 +1,5 @@
 import { MindARThree } from "../libs/mindar/mindar-image-three.prod.js";
-import * as THREE from '../libs/three/three.module.min.js';
+// import * as THREE from '../libs/three/three.module.min.js';
 // import * as TM from "../libs/tensorflow/teachablemachine-image.min.js"
 
 // @formatter: off
