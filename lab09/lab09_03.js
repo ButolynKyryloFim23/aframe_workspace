@@ -137,6 +137,7 @@ async function loadFbxModel(path)
         });
     });
 }
+
 async function loadGltfModel(path)
 {
     const loader = new GLTFLoader();
