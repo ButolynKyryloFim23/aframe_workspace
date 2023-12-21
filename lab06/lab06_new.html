@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="../libs/aframe/aframe.min.js"></script>
+	<script src="../libs/aframe/aframe-ar.js"></script>
+    <script src="./lab06_new.js"></script>
+</head>
+	<body>
+		<a-scene arjs="debug: false; " embedded vr-mode-ui="enabled: false;">
+			<a-marker preset="HIRO" registerevents id="A">
+				<a-sphere radius="0.1" color="red"></a-sphere>
+				<a-entity id="AB"></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="../assets/markers/kanji/pattern-kanji.patt" registerevents id="B">
+				<a-sphere radius="0.1" color="yellow"></a-sphere>
+				<a-entity id="BC"></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="../assets/markers/thumbup/pattern-thumb-up.patt" registerevents id="C">
+				<a-sphere radius="0.1" color="blue"></a-sphere>
+				<a-entity id="CD"></a-entity>
+			</a-marker>
+
+			<a-marker type="pattern" url="../assets/markers/lego/pattern-lego.patt" registerevents id="D">
+				<a-sphere radius="0.1" color="green"></a-sphere>
+				<a-entity id="DA"></a-entity>
+			</a-marker>
+
+			<a-entity camera></a-entity>
+			<a-entity run></a-entity>
+		</a-scene>
+	</body>
+</html>
