@@ -1,5 +1,7 @@
-import { ARButton } from '../libs/three/examples/jsm/webxr/ARButton.js';
-import * as THREE from "../libs/three/three.module.min.js";
+import { ARButton } from '../../libs/three/examples/jsm/webxr/ARButton.js';
+import * as THREE from "../../libs/three/three.module.min.js";
+import { VRButton } from "../../libs/three/examples/jsm/webxr/VRButton.js";
+import {FBXLoader} from "../../libs/three/examples/jsm/loaders/FBXLoader.js";
 
 document.addEventListener("DOMContentLoaded", () =>
 {
@@ -10,31 +12,49 @@ document.addEventListener("DOMContentLoaded", () =>
         const camera = array[1];
         const renderer = array[2];
 
+        // const  button = VRButton.createButton(renderer);
+        //
         const button = ARButton.createButton(renderer);
         document.body.appendChild(button);
 
         {
             const planetGeometry = new THREE.SphereGeometry(3.0, 32, 32);
-            const planetMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('../assets/textures/mars_planet_texture.jpg') });
+            const planetMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('../../assets/textures/planets/earth/earth_planet_texture.jpg') });
             const planet = new THREE.Mesh(planetGeometry, planetMaterial);
             setScale(planet);
             scene.add(planet);
 
-            // Добавляем электроны
-            const phobos = createSatellite(6, 0.9, 0.5, 'phobos_satellite_texture');
-            phobos.position.setX(6);
-            const deimos = createSatellite(9, 0.3, 1.0, 'deimos_satellite_texture');
-            deimos.position.setX(9);
-            scene.add(phobos, deimos);
-            const satellites = [phobos, deimos];
+            const moon = createSatellite(9, 0.3, 1.2, 'moon_satellite_texture');
+            moon.position.setX(9);
+
+            const iss = await createInternationSpaceStation(6, 0.1);
+            iss.position.setX(6);
+            const issLight = new THREE.AmbientLight(0xffffff, 0.5); // м'яке світло
+            scene.add(issLight);
+
+            scene.add(moon, iss);
+            const satellites = [moon];
 
             // Добавляем орбиты
-            const orbit1 = addOrbit(scene, 6, 0x222222);
-            const orbit2 = addOrbit(scene, 9, 0x222222);
+            // const orbit1 = addOrbit(scene, 6, 0x222222);
+            // const orbit2 = addOrbit(scene, 9, 0x222222);
 
             renderer.setAnimationLoop(() =>
             {
                 planet.rotation.y = ((planet.rotation.y >= 360) ? 0 : (planet.rotation.y + 0.001));
+
+                let issRadius = parseInt(  iss.userData.radius) * iss.scale.getComponent(0);
+                let issSpeed  = parseFloat(iss.userData.speed);
+
+                iss.rotation.y = ((iss.rotation.y >= 360) ? 0 : (iss.rotation.y + issSpeed / 500));
+                iss.position.setX(issRadius * Math.cos(issSpeed * Date.now() / 1000));
+                iss.position.setY((issRadius * Math.sin(issSpeed * Date.now() / 1000 * Math.sqrt(2))) / 2.);
+                iss.position.setZ(issRadius * Math.sin(issSpeed * Date.now() / 1000));
+
+                issLight.position.setX(iss.position.x);
+                issLight.position.setY(iss.position.y + 0.2);
+                issLight.position.setZ(iss.position.z);
+
                 for (let satellite of satellites)
                 {
                     let radius = parseInt(  satellite.userData.radius) * satellite.scale.getComponent(0);
@@ -83,11 +103,21 @@ function initThreeScene()
 function createSatellite(animationRadius, animationSpeed, sphereRadius, textureName)
 {
     const satelliteGeometry = new THREE.SphereGeometry(sphereRadius, 32, 32);
-    const satelliteMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('../assets/textures/' + textureName + '.jpg') });
+    const satelliteMaterial = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load('../../assets/textures/planets/earth/' + textureName + '.jpg') });
     const satellite = new THREE.Mesh(satelliteGeometry, satelliteMaterial);
     setScale(satellite);
     satellite.userData = { radius: animationRadius, speed: animationSpeed };
     return satellite;
+}
+
+async function createInternationSpaceStation(animationRadius, animationSpeed)
+{
+    // TAKES FROM FREE NASA REPOSITORY
+    // https://github.com/nasa/NASA-3D-Resources/tree/master/3D%20Models/International%20Space%20Station
+    const iss = await loadFbxModel('../../assets/model/international_space_station/ISSComplete1.fbx');
+    iss.scale.set(0.02, 0.02, 0.02);
+    iss.userData = { radius: animationRadius, speed: animationSpeed };
+    return iss;
 }
 
 function addOrbit(scene, radius, color)
@@ -111,4 +141,25 @@ function onWindowResize()
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
+async function loadFbxModel(path)
+{
+    const loader = new FBXLoader();
+    // const texture = await loadTexture('../assets/model/padoru_v3/Padoru_Tex.png');
+    return new Promise((resolve) =>
+    {
+        loader.load(path, (model) =>
+        {
+            model.traverse((child) =>
+            {
+                // if (child.isMesh)
+                // {
+                //     Для каждого материала в модели
+                    // child.material.map = texture;
+                // }
+            });
+            resolve(model);
+        });
+    });
 }
